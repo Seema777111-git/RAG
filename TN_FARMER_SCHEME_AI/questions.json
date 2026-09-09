@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "type": "valid",
+        "language": "english",
+        "question": "What subsidy is available for farmers for agricultural machinery?"
+    },
+    {
+        "id": 2,
+        "type": "valid",
+        "language": "english",
+        "question": "What documents are required to apply for a government agriculture scheme?"
+    },
+    {
+        "id": 3,
+        "type": "valid",
+        "language": "tamil",
+        "question": "விவசாயிகளுக்கு என்ன மானிய திட்டங்கள் உள்ளன?"
+    },
+    {
+        "id": 4,
+        "type": "valid",
+        "language": "tanglish",
+        "question": "Vivasaayigalukku enna subsidy thittangal irukku?"
+    },
+    {
+        "id": 5,
+        "type": "insufficient",
+        "language": "english",
+        "question": "Subsidy?"
+    },
+    {
+        "id": 6,
+        "type": "insufficient",
+        "language": "english",
+        "question": "Scheme?"
+    },
+    {
+        "id": 7,
+        "type": "irrelevant",
+        "language": "english",
+        "question": "Who is the Prime Minister of Canada?"
+    },
+    {
+        "id": 8,
+        "type": "irrelevant",
+        "language": "english",
+        "question": "How can I learn Python programming?"
+    },
+    {
+        "id": 9,
+        "type": "valid",
+        "language": "english",
+        "question": "What are the eligibility requirements for farmers to receive agricultural assistance?"
+    },
+    {
+        "id": 10,
+        "type": "valid",
+        "language": "tanglish",
+        "question": "Agriculture scheme ku epdi apply panrathu?"
+    }
+]
