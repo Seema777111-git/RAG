@@ -1,0 +1,13 @@
+# Web scraping
+playwright>=1.42.0
+
+# Graph database driver
+neo4j>=5.18.0
+
+# LLM integration
+openai>=1.20.0
+pydantic>=2.6.0
+
+# Environment variables & utilities
+python-dotenv>=1.0.1
+tqdm>=4.66.0
