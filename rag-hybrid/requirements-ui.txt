@@ -1,0 +1,3 @@
+# Front end only (used by the Docker "ui" image). pandas comes with streamlit.
+streamlit>=1.40
+httpx>=0.27

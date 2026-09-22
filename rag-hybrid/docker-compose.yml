@@ -1,0 +1,39 @@
+# Run everything:   docker compose up --build        (then open http://localhost:8501)
+# Stop:             docker compose down               (your data in ./data is kept)
+name: rag-hybrid
+
+services:
+  api:
+    build:
+      context: .
+      target: api
+    image: rag-hybrid-api
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8000:8000"        # API docs at http://localhost:8000/docs (localhost only: there is no login)
+    volumes:
+      - ./.env:/app/.env:ro          # same settings file you use without Docker (holds your API key)
+      - ./data:/app/data             # uploads, FAISS index, knowledge graph, evaluation reports
+      - hf_cache:/hf-cache           # downloaded embedding model
+    environment:
+      API_HOST: 0.0.0.0              # must listen on all interfaces inside the container
+      API_PORT: "8000"
+
+  ui:
+    build:
+      context: .
+      target: ui
+    image: rag-hybrid-ui
+    init: true
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8501:8501"
+    environment:
+      BACKEND_URL: http://api:8000   # the UI talks to the API over the compose network; it never sees your API key
+
+volumes:
+  hf_cache:

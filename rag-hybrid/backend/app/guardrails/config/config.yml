@@ -1,0 +1,28 @@
+# NVIDIA NeMo Guardrails configuration (Colang 1.0).
+#
+# The application passes its own LLM object to LLMRails (see guardrails/engine.py),
+# so the `models` block below is only used when you run this folder standalone,
+# e.g.  `nemoguardrails chat --config backend/app/guardrails/config`
+# (standalone use needs NEMOGUARDRAILS_LLM_FRAMEWORK=langchain and OPENAI_API_KEY set).
+colang_version: "1.0"
+
+models:
+  - type: main
+    engine: openai
+    model: gpt-4o-mini
+
+instructions:
+  - type: general
+    content: |
+      You are the safety layer of a document question-answering assistant.
+      The assistant only answers questions about the user's uploaded PDF documents.
+
+rails:
+  input:
+    flows:
+      - check input policy      # cheap deterministic checks (custom action)
+      - self check input        # LLM-based jailbreak / policy check
+  output:
+    flows:
+      - self check output       # LLM-based safety check of the answer
+      - self check facts        # LLM-based grounding check against retrieved evidence

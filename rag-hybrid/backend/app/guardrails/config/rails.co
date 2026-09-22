@@ -1,0 +1,8 @@
+define bot inform policy block
+  "I can't process that request because it appears to contain sensitive personal data or is not a valid question. Please rephrase it without card numbers, passwords or similar secrets."
+
+define flow check input policy
+  $allowed = execute check_input_policy
+  if not $allowed
+    bot inform policy block
+    stop

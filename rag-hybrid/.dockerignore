@@ -1,0 +1,13 @@
+# Keep the build context small and keep secrets out of image layers.
+.venv
+.git
+.env
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.ruff_cache
+.deepeval
+data
+tests
+scripts
+*.md
