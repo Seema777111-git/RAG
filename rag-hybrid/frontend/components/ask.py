@@ -64,7 +64,7 @@ def _render_result(r: dict) -> None:
 
 
 def _answer_card(r: dict) -> None:
-    with st.container(border=True):
+    with st.container(border=True, key="answer_card"):
         st.markdown("**Answer**")
         if r["blocked"]:
             st.error(f"Blocked by guardrail: {r['blocked_by']}")

@@ -1,0 +1,15 @@
+# Voiceover script (as recorded)
+
+Voice: Microsoft Zira Desktop (Windows built-in), rate +1, loudness-normalised to -16 LUFS. Files: assets/voice/v01-v11.wav.
+
+v01 Upload: This is the Hybrid RAG workbench, running live. On the Documents tab, I upload an HR policy PDF.
+v02 Ingest: Ingestion runs as a background job. The text is split into chunks, embedded into a FAISS index, and a language model extracts facts for a knowledge graph.
+v03 Ingest result: Two pages became six chunks, and forty-eight graph facts.
+v04 Ask: Now I ask a question in plain English. Hybrid mode searches both indexes at the same time.
+v05 Guardrail and retrieval: A NeMo guardrail screens the question first. Then retrieval runs, and G P T four o writes the answer.
+v06 Answer: The answer arrives with citations. C marks a passage from the PDF. K marks a fact from the knowledge graph. And both guardrails passed.
+v07 Evidence: Below the answer is the evidence. FAISS ranked these passages by similarity. The knowledge graph linked entities from the question, and returned the exact facts it used.
+v08 How it was built: How this answer was built: both guardrail checks, and the time each step took.
+v09 Evaluation: The Evaluation tab scores answers with DeepEval, using G P T four o as the judge. Faithfulness, relevancy, precision and recall all score one. Context relevancy is the next thing to tune.
+v10 Under the hood: Under the hood, each PDF is indexed twice: as vectors, and as a graph. Every question passes a guardrail, searches both, and fuses the evidence. G P T four o answers, and a second rail checks it is grounded.
+v11 Tests and close: Seventy-seven automated tests cover the pipeline. It runs on FastAPI, Streamlit, and Docker. Every answer, with its evidence.

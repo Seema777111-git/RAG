@@ -8,16 +8,16 @@ def _esc(text: str) -> str:
 
 
 def to_dot(nodes: list[dict], edges: list[dict]) -> str:
-    """Seed entities (linked from the question) are filled purple; neighbours are light."""
+    """Seed entities (linked from the question) are filled amber; neighbours are light."""
     index = {n["id"]: f"n{i}" for i, n in enumerate(nodes)}
     lines = [
         "digraph G {",
         '  rankdir=LR; bgcolor="transparent"; nodesep=0.35; ranksep=0.7;',
-        '  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11, color="#AFA9EC", fillcolor="#EEEDFE", fontcolor="#26215C"];',
-        '  edge [fontname="Helvetica", fontsize=10, color="#7F77DD", fontcolor="#3C3489", arrowsize=0.7];',
+        '  node [shape=box, style="rounded,filled", fontname="Manrope, Helvetica", fontsize=11, color="#F0C190", fillcolor="#FFF4E8", fontcolor="#5C3800"];',
+        '  edge [fontname="Manrope, Helvetica", fontsize=10, color="#D9822B", fontcolor="#A85F00", arrowsize=0.7];',
     ]
     for n in nodes:
-        style = ', fillcolor="#534AB7", color="#3C3489", fontcolor="#FFFFFF"' if n.get("is_seed") else ""
+        style = ', fillcolor="#D9822B", color="#B86A1C", fontcolor="#FFFFFF"' if n.get("is_seed") else ""
         lines.append(f'  {index[n["id"]]} [label="{_esc(n["label"])}"{style}];')
     for e in edges:
         if e["source"] in index and e["target"] in index:

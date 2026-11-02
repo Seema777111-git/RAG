@@ -1,0 +1,58 @@
+<template>
+  <style>
+@font-face{font-family:"Manrope";src:url("assets/fonts/manrope-700.woff2") format("woff2");font-weight:700;}
+@font-face{font-family:"Manrope";src:url("assets/fonts/manrope-800.woff2") format("woff2");font-weight:800;}
+#root{position:absolute;inset:0;font-family:"Manrope",sans-serif;}
+#root .step{position:absolute;right:28px;top:22px;}
+#root .step .inner{display:flex;align-items:center;gap:14px;background:#FFFFFF;border:2px solid #C7D5FF;border-radius:999px;padding:10px 26px 10px 10px;
+  box-shadow:0 0 0 6px rgba(61,99,224,.10),0 0 28px rgba(61,99,224,.30),0 10px 30px rgba(27,37,64,.12);}
+#root .step b{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#3D63E0,#7C9BFF);color:#fff;display:grid;place-items:center;
+  font-family:"Outfit",sans-serif;font-weight:800;font-size:26px;}
+#root .step span{font-family:"Outfit",sans-serif;font-weight:800;font-size:30px;color:#1B2540;letter-spacing:-.01em;}
+#root .badge{position:absolute;right:28px;top:104px;}
+#root .badge .inner{display:flex;align-items:center;gap:12px;background:#FFF4E8;border:2px solid #F6D2AB;border-radius:999px;padding:8px 20px;
+  font-weight:800;font-size:28px;color:#A85F00;box-shadow:0 0 22px rgba(217,130,43,.28);}
+#root .badge i{width:20px;height:20px;border-radius:50%;border:3px solid #F6D2AB;border-top-color:#D9822B;display:block;}
+#root .title{position:absolute;left:28px;bottom:150px;}
+#root .title .inner{background:#FFFFFF;border:2px solid #C7D5FF;border-radius:24px;padding:26px 34px;
+  box-shadow:0 0 0 8px rgba(61,99,224,.08),0 0 40px rgba(61,99,224,.28),0 20px 50px rgba(27,37,64,.14);}
+#root .title .k{font-family:"Outfit",sans-serif;font-weight:800;font-size:28px;letter-spacing:.12em;text-transform:uppercase;color:#1E9E6A;display:flex;gap:10px;align-items:center;}
+#root .title .k i{width:12px;height:12px;border-radius:50%;background:#1E9E6A;display:block;box-shadow:0 0 12px #1E9E6A;}
+#root .title .h{font-family:"Outfit",sans-serif;font-weight:800;font-size:72px;letter-spacing:-.03em;line-height:1.02;color:#1B2540;margin-top:8px;}
+#root .title .h span{color:#3D63E0;}
+  </style>
+  <div data-hf-id="hf-p4z4" id="root" data-composition-id="live-overlay" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-726p" id="ttl" class="clip title" data-start="0" data-duration="4.2" data-track-index="1">
+      <div data-hf-id="hf-4ld6" class="inner" id="ttl-in"><div data-hf-id="hf-aiao" class="k"><i data-hf-id="hf-wt6k"></i>Live demo</div><div data-hf-id="hf-0xsk" class="h">Hybrid RAG <span data-hf-id="hf-agj6">workbench</span></div></div>
+    </div>
+        <div data-hf-id="hf-ahw9" id="st0" class="clip step" data-start="0.000" data-duration="11.040" data-track-index="2"><div data-hf-id="hf-cgn7" class="inner" id="st0-in"><b data-hf-id="hf-t4n0">1</b><span data-hf-id="hf-h789">Upload a PDF</span></div></div>
+    <div data-hf-id="hf-yazq" id="st1" class="clip step" data-start="11.040" data-duration="13.500" data-track-index="3"><div data-hf-id="hf-n2w8" class="inner" id="st1-in"><b data-hf-id="hf-rxpx">2</b><span data-hf-id="hf-w4dn">Ingest · FAISS + knowledge graph</span></div></div>
+    <div data-hf-id="hf-lqhr" id="st2" class="clip step" data-start="24.540" data-duration="16.400" data-track-index="2"><div data-hf-id="hf-xued" class="inner" id="st2-in"><b data-hf-id="hf-sc0y">3</b><span data-hf-id="hf-4wnj">Ask a question</span></div></div>
+    <div data-hf-id="hf-jjf8" id="st3" class="clip step" data-start="40.940" data-duration="8.824" data-track-index="3"><div data-hf-id="hf-rlci" class="inner" id="st3-in"><b data-hf-id="hf-ubk3">4</b><span data-hf-id="hf-ak7t">Cited answer + guardrails</span></div></div>
+    <div data-hf-id="hf-jbdi" id="st4" class="clip step" data-start="49.764" data-duration="11.920" data-track-index="2"><div data-hf-id="hf-7p5z" class="inner" id="st4-in"><b data-hf-id="hf-upv4">5</b><span data-hf-id="hf-x1t6">Evidence · FAISS + graph</span></div></div>
+    <div data-hf-id="hf-qj0k" id="st5" class="clip step" data-start="61.684" data-duration="9.067" data-track-index="3"><div data-hf-id="hf-704c" class="inner" id="st5-in"><b data-hf-id="hf-tiy1">6</b><span data-hf-id="hf-fm9z">How it was built</span></div></div>
+    <div data-hf-id="hf-xubx" id="st6" class="clip step" data-start="70.751" data-duration="14.933" data-track-index="2"><div data-hf-id="hf-9f21" class="inner" id="st6-in"><b data-hf-id="hf-tx92">7</b><span data-hf-id="hf-0khe">Evaluation · DeepEval</span></div></div>
+    <div data-hf-id="hf-6krq" id="bd0" class="clip badge" data-start="11.040" data-duration="6.900" data-track-index="4"><div data-hf-id="hf-26nk" class="inner" id="bd0-in"><i data-hf-id="hf-zeb8"></i>Ingesting · real time 28 s · shown 4×</div></div>
+    <div data-hf-id="hf-3gek" id="bd1" class="clip badge" data-start="34.620" data-duration="6.320" data-track-index="4"><div data-hf-id="hf-4dpz" class="inner" id="bd1-in"><i data-hf-id="hf-y7e5"></i>Guardrail → retrieval → gpt-4o · real time 16 s · shown 2.5×</div></div>
+    <div data-hf-id="hf-7dm1" id="bd2" class="clip badge" data-start="76.084" data-duration="2.500" data-track-index="4"><div data-hf-id="hf-976p" class="inner" id="bd2-in"><i data-hf-id="hf-ylp6"></i>Loading report · shown 8×</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ttl-in", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "expo.out" }, 0.0);
+    tl.to("#ttl-in", { y: 16, opacity: 0, duration: 0.4, ease: "power2.in" }, 3.7);
+        tl.fromTo("#st0-in", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 0.050);
+    tl.fromTo("#st1-in", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 11.090);
+    tl.fromTo("#st2-in", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 24.590);
+    tl.fromTo("#st3-in", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 40.990);
+    tl.fromTo("#st4-in", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 49.814);
+    tl.fromTo("#st5-in", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 61.734);
+    tl.fromTo("#st6-in", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 70.801);
+    tl.fromTo("#bd0-in", { y: -12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "expo.out" }, 11.090);
+    tl.fromTo("#bd0-in i", { rotation: 0 }, { rotation: 2880, duration: 6.800, ease: "none" }, 11.040);
+    tl.fromTo("#bd1-in", { y: -12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "expo.out" }, 34.670);
+    tl.fromTo("#bd1-in i", { rotation: 0 }, { rotation: 2520, duration: 6.220, ease: "none" }, 34.620);
+    tl.fromTo("#bd2-in", { y: -12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "expo.out" }, 76.134);
+    tl.fromTo("#bd2-in i", { rotation: 0 }, { rotation: 1080, duration: 2.400, ease: "none" }, 76.084);
+    window.__timelines["live-overlay"] = tl;
+  </script>
+</template>

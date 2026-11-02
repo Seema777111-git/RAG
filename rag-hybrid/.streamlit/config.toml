@@ -1,10 +1,31 @@
 [theme]
 base = "light"
-primaryColor = "#0F6E56"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F3F5F7"
-textColor = "#1B2430"
-font = "sans serif"
+primaryColor = "#3D63E0"
+backgroundColor = "#F5F7FB"
+secondaryBackgroundColor = "#F2F5FC"
+textColor = "#1B2540"
+borderColor = "#DCE4F2"
+linkColor = "#3D63E0"
+linkUnderline = false
+showWidgetBorder = true
+baseRadius = "12px"
+buttonRadius = "12px"
+font = "Manrope:https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap"
+headingFont = "Outfit:https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&display=swap"
+codeFont = "'IBM Plex Mono':https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"
+headingFontWeights = [800, 800, 800, 700, 700, 700]
+blueColor = "#3D63E0"
+orangeColor = "#D9822B"
+greenColor = "#1E9E6A"
+violetColor = "#8B6CF0"
+redColor = "#C62833"
+chartCategoricalColors = ["#3D63E0", "#D9822B", "#1E9E6A", "#8B6CF0", "#C62833", "#0EA5B7", "#66708A"]
+dataframeHeaderBackgroundColor = "#F2F5FC"
+
+[theme.sidebar]
+backgroundColor = "#EEF3FB"
+secondaryBackgroundColor = "#E6EDFA"
+borderColor = "#DCE4F2"
 
 [server]
 maxUploadSize = 50

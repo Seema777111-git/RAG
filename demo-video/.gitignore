@@ -1,0 +1,12 @@
+# temporary / regenerable material
+raw/
+.venv-tts/
+snapshots/
+voice-samples/
+.hyperframes/
+.thumbnails/
+.waveform-cache/
+node_modules/
+boards/.film.html
+boards/.posed.html
+.env

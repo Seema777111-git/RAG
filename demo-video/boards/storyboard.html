@@ -1,0 +1,81 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo Storyboard</title><style>body{margin:0;background:#F5F7FB;color:#1B2540;font-family:Inter,system-ui,sans-serif;padding:32px max(16px,4vw) 64px}
+h1{font-size:28px;margin:0 0 6px} .lede{color:#66708A;margin:0 0 24px;max-width:70ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:22px}
+.act{grid-column:1/-1;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#3D63E0;margin-top:10px}
+.frame{background:#fff;border:1px solid #DCE4F2;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(27,37,64,.06)}
+.frame img{width:100%;display:block;border-bottom:1px solid #E3E9F5}
+.title{font-weight:800;font-size:17px;padding:12px 16px 0} .time{color:#66708A;font-size:13px;padding:2px 16px 0;font-variant-numeric:tabular-nums}
+.words{margin:8px 16px 0;font-size:14px;line-height:1.5} .vo{margin:8px 16px 16px;font-size:14px;line-height:1.5;color:#3D63E0;font-style:italic}</style></head><body>
+<h1>Hybrid RAG workbench: demo storyboard</h1>
+<p class="lede">90 seconds, 1920x1080. Each still is a real frame from the film at its key moment; motion, voiceover, captions and music are added after approval. Blue italic lines are the voiceover.</p>
+<div class="grid">
+<section class="act">Hook</section>
+<div class="frame">
+  <img src="stills/frame-00-at-5.5s.png" alt="The hook" />
+  <div class="title">01: The hook</div>
+  <div class="time">0.0 to 7.0s</div>
+  <p class="words">The real answer card fills the window; its citations and guardrail badges light up as the title lands.</p>
+  <p class="vo">“Ask a question about any PDF, and get an answer that shows exactly where it came from.”</p>
+</div>
+<section class="act">Build the index</section>
+<div class="frame">
+  <img src="stills/frame-01-at-15.5s.png" alt="Upload and ingest" />
+  <div class="title">02: Upload and ingest</div>
+  <div class="time">7.0 to 17.0s</div>
+  <p class="words">HRPolicy.pdf goes in. The camera pans across the result as 2 pages, 6 chunks and 48 graph facts count up.</p>
+  <p class="vo">“Upload a PDF. It's split into six chunks, then indexed twice: as vectors in FAISS, and as forty-eight facts in a knowledge graph.”</p>
+</div>
+<div class="frame">
+  <img src="stills/frame-02-at-23s.png" alt="Ask" />
+  <div class="title">03: Ask</div>
+  <div class="time">17.0 to 25.0s</div>
+  <p class="words">The question sits in the form; Hybrid mode and the Ask button are ringed in turn.</p>
+  <p class="vo">“Ask in plain English. Hybrid mode searches both indexes at the same time.”</p>
+</div>
+<section class="act">Read the answer</section>
+<div class="frame">
+  <img src="stills/frame-03-at-32.5s.png" alt="The answer" />
+  <div class="title">04: The answer</div>
+  <div class="time">25.0 to 35.0s</div>
+  <p class="words">Push into the answer card. C1, K1/K2 and both rail badges ring as the voice names them.</p>
+  <p class="vo">“Every claim is cited. C marks a passage, K marks a graph fact. Guardrails checked the question, and the answer.”</p>
+</div>
+<div class="frame">
+  <img src="stills/frame-04-at-43s.png" alt="Vector retrieval" />
+  <div class="title">05: Vector retrieval</div>
+  <div class="time">35.0 to 45.0s</div>
+  <p class="words">Push to the top FAISS passage: 0.558 counts up; the 'also cited by a graph fact' badge rings in apricot.</p>
+  <p class="vo">“FAISS ranks passages by meaning. The top match scores point five six, and a graph fact cites it too.”</p>
+</div>
+<div class="frame">
+  <img src="stills/frame-05-at-53.5s.png" alt="Knowledge graph" />
+  <div class="title">06: Knowledge graph</div>
+  <div class="time">45.0 to 55.0s</div>
+  <p class="words">The camera steps from entities to facts to the graph drawing, each ringed in apricot.</p>
+  <p class="vo">“The graph links words in the question to entities, then follows their relations to exact facts.”</p>
+</div>
+<section class="act">How it works</section>
+<div class="frame">
+  <img src="stills/frame-06-at-67.5s.png" alt="Under the hood" />
+  <div class="title">07: Under the hood</div>
+  <div class="time">55.0 to 68.0s</div>
+  <p class="words">One diagram grows part by part as the voice names it: ingestion, input rail, both searches, fuse, gpt-4o, output rail.</p>
+  <p class="vo">“Under the hood: a NeMo guardrail screens the question. Both searches run in parallel. The evidence is fused, gpt-4o answers, and a second rail checks it's grounded.”</p>
+</div>
+<section class="act">Proof</section>
+<div class="frame">
+  <img src="stills/frame-07-at-79.5s.png" alt="Evaluation" />
+  <div class="title">08: Evaluation</div>
+  <div class="time">68.0 to 80.0s</div>
+  <p class="words">The real DeepEval report: 1.00 counts up for four metrics; context relevancy 0.10 is flagged as the next fix.</p>
+  <p class="vo">“DeepEval measures quality, with gpt-4o as the judge. Faithfulness, relevancy, precision and recall all score one. Context relevancy is the next thing to tune.”</p>
+</div>
+<div class="frame">
+  <img src="stills/frame-08-at-88.5s.png" alt="Tests and close" />
+  <div class="title">09: Tests and close</div>
+  <div class="time">80.0 to 90.0s</div>
+  <p class="words">77 counts up, the stack lands, then the closing line holds.</p>
+  <p class="vo">“Seventy-seven automated tests cover the pipeline, served with FastAPI, Streamlit and Docker. Every answer, with its evidence.”</p>
+</div>
+</div></body></html>

@@ -1,0 +1,68 @@
+<template>
+  <style>
+@font-face{font-family:"Manrope";src:url("assets/fonts/manrope-700.woff2") format("woff2");font-weight:700;}
+@font-face{font-family:"Manrope";src:url("assets/fonts/manrope-800.woff2") format("woff2");font-weight:800;}
+#root{position:absolute;inset:0;font-family:"Manrope",sans-serif;}
+#root .cap{position:absolute;left:0;right:0;bottom:46px;display:flex;justify-content:center;}
+#root .cap p{max-width:1500px;text-align:center;background:rgba(255,255,255,.96);border:2px solid #DCE4F2;border-radius:20px;padding:12px 28px;
+  font-weight:800;font-size:34px;line-height:1.3;color:#1B2540;box-shadow:0 0 26px rgba(61,99,224,.18),0 10px 30px rgba(27,37,64,.12);}
+  </style>
+  <div data-hf-id="hf-jn2k" id="root" data-composition-id="captions" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-fsxr" id="cap00" class="clip cap" data-start="0.600" data-duration="3.269" data-track-index="1"><p data-hf-id="hf-3912" id="cap00-p">This is the Hybrid RAG workbench, running live.</p></div>
+    <div data-hf-id="hf-t4h1" id="cap01" class="clip cap" data-start="3.869" data-duration="3.338" data-track-index="1"><p data-hf-id="hf-gyug" id="cap01-p">On the Documents tab, I upload an HR policy PDF.</p></div>
+    <div data-hf-id="hf-ri7y" id="cap02" class="clip cap" data-start="11.290" data-duration="2.006" data-track-index="1"><p data-hf-id="hf-usdv" id="cap02-p">Ingestion runs as a background job.</p></div>
+    <div data-hf-id="hf-69ia" id="cap03" class="clip cap" data-start="13.296" data-duration="6.762" data-track-index="1"><p data-hf-id="hf-uhcb" id="cap03-p">The text is split into chunks, embedded into a FAISS index, and a language model extracts facts for a knowledge graph.</p></div>
+    <div data-hf-id="hf-ol93" id="cap04" class="clip cap" data-start="20.340" data-duration="3.341" data-track-index="1"><p data-hf-id="hf-2uru" id="cap04-p">Two pages became six chunks, and forty-eight graph facts.</p></div>
+    <div data-hf-id="hf-ccfp" id="cap05" class="clip cap" data-start="24.940" data-duration="2.226" data-track-index="1"><p data-hf-id="hf-94aa" id="cap05-p">Now I ask a question in plain English.</p></div>
+    <div data-hf-id="hf-a8q1" id="cap06" class="clip cap" data-start="27.166" data-duration="2.987" data-track-index="1"><p data-hf-id="hf-y2og" id="cap06-p">Hybrid mode searches both indexes at the same time.</p></div>
+    <div data-hf-id="hf-4lfc" id="cap07" class="clip cap" data-start="34.320" data-duration="2.950" data-track-index="1"><p data-hf-id="hf-qlaf" id="cap07-p">A NeMo guardrail screens the question first.</p></div>
+    <div data-hf-id="hf-jto2" id="cap08" class="clip cap" data-start="37.270" data-duration="3.353" data-track-index="1"><p data-hf-id="hf-3vuv" id="cap08-p">Then retrieval runs, and gpt-4o writes the answer.</p></div>
+    <div data-hf-id="hf-m6cu" id="cap09" class="clip cap" data-start="40.990" data-duration="2.303" data-track-index="1"><p data-hf-id="hf-54yh" id="cap09-p">The answer arrives with citations.</p></div>
+    <div data-hf-id="hf-89iy" id="cap10" class="clip cap" data-start="43.293" data-duration="2.100" data-track-index="1"><p data-hf-id="hf-x7q5" id="cap10-p">C marks a passage from the PDF.</p></div>
+    <div data-hf-id="hf-qudn" id="cap11" class="clip cap" data-start="45.393" data-duration="2.709" data-track-index="1"><p data-hf-id="hf-avlw" id="cap11-p">K marks a fact from the knowledge graph.</p></div>
+    <div data-hf-id="hf-kqt7" id="cap12" class="clip cap" data-start="48.102" data-duration="1.829" data-track-index="1"><p data-hf-id="hf-lwde" id="cap12-p">And both guardrails passed.</p></div>
+    <div data-hf-id="hf-3izq" id="cap13" class="clip cap" data-start="50.164" data-duration="1.826" data-track-index="1"><p data-hf-id="hf-fz8z" id="cap13-p">Below the answer is the evidence.</p></div>
+    <div data-hf-id="hf-ft9r" id="cap14" class="clip cap" data-start="51.990" data-duration="2.324" data-track-index="1"><p data-hf-id="hf-977z" id="cap14-p">FAISS ranked these passages by similarity.</p></div>
+    <div data-hf-id="hf-f7qx" id="cap15" class="clip cap" data-start="54.314" data-duration="5.091" data-track-index="1"><p data-hf-id="hf-s4e2" id="cap15-p">The knowledge graph linked entities from the question, and returned the exact facts it used.</p></div>
+    <div data-hf-id="hf-oy1s" id="cap16" class="clip cap" data-start="61.984" data-duration="4.156" data-track-index="1"><p data-hf-id="hf-55n9" id="cap16-p">How this answer was built: both guardrail checks, and the time each step took.</p></div>
+    <div data-hf-id="hf-yrs1" id="cap17" class="clip cap" data-start="71.001" data-duration="4.946" data-track-index="1"><p data-hf-id="hf-jghi" id="cap17-p">The Evaluation tab scores answers with DeepEval, using gpt-4o as the judge.</p></div>
+    <div data-hf-id="hf-2pho" id="cap18" class="clip cap" data-start="75.947" data-duration="3.957" data-track-index="1"><p data-hf-id="hf-jig2" id="cap18-p">Faithfulness, relevancy, precision and recall all score one.</p></div>
+    <div data-hf-id="hf-xi5x" id="cap19" class="clip cap" data-start="79.904" data-duration="2.902" data-track-index="1"><p data-hf-id="hf-mebk" id="cap19-p">Context relevancy is the next thing to tune.</p></div>
+    <div data-hf-id="hf-2rk6" id="cap20" class="clip cap" data-start="85.984" data-duration="2.922" data-track-index="1"><p data-hf-id="hf-hazu" id="cap20-p">Under the hood, each PDF is indexed twice:</p></div>
+    <div data-hf-id="hf-jbhy" id="cap21" class="clip cap" data-start="88.906" data-duration="7.028" data-track-index="1"><p data-hf-id="hf-huey" id="cap21-p">as vectors, and as a graph. Every question passes a guardrail, searches both, and fuses the evidence.</p></div>
+    <div data-hf-id="hf-j3pi" id="cap22" class="clip cap" data-start="95.934" data-duration="3.897" data-track-index="1"><p data-hf-id="hf-9jzp" id="cap22-p">gpt-4o answers, and a second rail checks it is grounded.</p></div>
+    <div data-hf-id="hf-kbkz" id="cap23" class="clip cap" data-start="100.784" data-duration="3.309" data-track-index="1"><p data-hf-id="hf-n7hz" id="cap23-p">Seventy-seven automated tests cover the pipeline.</p></div>
+    <div data-hf-id="hf-ndob" id="cap24" class="clip cap" data-start="104.093" data-duration="2.836" data-track-index="1"><p data-hf-id="hf-r4vh" id="cap24-p">It runs on FastAPI, Streamlit, and Docker.</p></div>
+    <div data-hf-id="hf-uhrl" id="cap25" class="clip cap" data-start="106.929" data-duration="2.161" data-track-index="1"><p data-hf-id="hf-gpl8" id="cap25-p">Every answer, with its evidence.</p></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#cap00-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 0.600);
+    tl.fromTo("#cap01-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 3.869);
+    tl.fromTo("#cap02-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 11.290);
+    tl.fromTo("#cap03-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 13.296);
+    tl.fromTo("#cap04-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 20.340);
+    tl.fromTo("#cap05-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 24.940);
+    tl.fromTo("#cap06-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 27.166);
+    tl.fromTo("#cap07-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 34.320);
+    tl.fromTo("#cap08-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 37.270);
+    tl.fromTo("#cap09-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 40.990);
+    tl.fromTo("#cap10-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 43.293);
+    tl.fromTo("#cap11-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 45.393);
+    tl.fromTo("#cap12-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 48.102);
+    tl.fromTo("#cap13-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 50.164);
+    tl.fromTo("#cap14-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 51.990);
+    tl.fromTo("#cap15-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 54.314);
+    tl.fromTo("#cap16-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 61.984);
+    tl.fromTo("#cap17-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 71.001);
+    tl.fromTo("#cap18-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 75.947);
+    tl.fromTo("#cap19-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 79.904);
+    tl.fromTo("#cap20-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 85.984);
+    tl.fromTo("#cap21-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 88.906);
+    tl.fromTo("#cap22-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 95.934);
+    tl.fromTo("#cap23-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 100.784);
+    tl.fromTo("#cap24-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 104.093);
+    tl.fromTo("#cap25-p", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }, 106.929);
+    window.__timelines["captions"] = tl;
+  </script>
+</template>
