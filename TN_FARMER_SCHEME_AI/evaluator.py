@@ -331,6 +331,28 @@ def run_evaluation():
 
     display_summary(results)
 
+    # --------------------------------------------------------
+    # SAVE REPORT (read by the app's Evaluation Report panel)
+    # --------------------------------------------------------
+
+    from datetime import datetime
+
+    report_file = BASE_DIR / "evaluation" / "report.json"
+    report_file.parent.mkdir(exist_ok=True)
+    report_file.write_text(
+        json.dumps(
+            {
+                "run_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
+                "retrieval": "hybrid (FAISS + BM25, RRF) -> CrossEncoder rerank",
+                "results": results
+            },
+            ensure_ascii=False,
+            indent=2
+        ),
+        encoding="utf-8"
+    )
+    print("Report saved:", report_file)
+
     return results
 
 

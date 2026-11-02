@@ -61,9 +61,9 @@ def run_rag(query, components):
 
     Farmer Question
           ↓
-    BGE Embedding
+    BGE Embedding + FAISS (dense)   |   BM25 (keyword)
           ↓
-    FAISS Semantic Retrieval
+    Reciprocal Rank Fusion (hybrid)
           ↓
     Top 5 Results
           ↓

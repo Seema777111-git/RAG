@@ -6,6 +6,19 @@ Government scheme information is scattered, hard to search, and locked behind bu
 
 ---
 
+## 🎬 Demo Video
+
+[▶ Watch the live demo (2 min 23 s)](demo/tn-farmer-scheme-ai-demo.mp4): a real recording of the running app, with voiceover.
+
+- An English question gets a grounded answer, the scheme details, and the official source
+- **RAG dashboard**: BGE, FAISS, BM25, RRF fusion, CrossEncoder rerank, Qwen 2.5
+- **Hybrid retrieval table**: FAISS rank and cosine score, BM25 rank and score, RRF score, rerank score for each chunk
+- A **Tanglish** question is understood and answered
+- An off-topic question is **blocked by guardrails** with no LLM call
+- **Evaluation report**: 10/10 labelled questions pass (valid / insufficient / irrelevant, in English, Tamil and Tanglish)
+
+---
+
 ## 🏆 Highlights
 
 - 🗣️ **True multilingual support** — not just translation, but real query understanding in English, தமிழ், and Tanglish, validated against a dedicated multilingual test set

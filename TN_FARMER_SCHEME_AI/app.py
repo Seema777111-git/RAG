@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import streamlit as st
 from rag import load_rag_components, run_rag
 ##app.py--basic first
@@ -215,6 +218,52 @@ st.markdown(
     .dashboard-status-blocked {
         color: #b3401e;
     }
+
+    /* Hybrid retrieval table + evaluation report */
+    .hy-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin-top: 6px;
+    }
+
+    .hy-table th {
+        color: #4a5a4e;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        text-align: left;
+        padding: 8px 10px;
+        border-bottom: 2px solid #dce8df;
+    }
+
+    .hy-table td {
+        color: #26352b;
+        padding: 8px 10px;
+        border-bottom: 1px solid #eef3ef;
+    }
+
+    .hy-pill {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 2px 10px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .hy-dense { background: #e7efff; color: #2f55c9; }
+    .hy-bm25 { background: #fff2e2; color: #a85f00; }
+    .hy-rrf { background: #eef7f0; color: #176b3a; }
+    .hy-top { background: #176b3a; color: #fff; }
+
+    .hy-sub {
+        color: #176b3a;
+        font-size: 15px;
+        font-weight: 800;
+        margin: 4px 0 2px 0;
+    }
+
+    .eval-pass { color: #176b3a; font-weight: 800; }
+    .eval-fail { color: #b3401e; font-weight: 800; }
 
     /* Footer */
     .footer {
@@ -618,7 +667,15 @@ if st.session_state.show_rag:
                     </div>
                     <div>
                         <div class="dashboard-component-name">🔎 FAISS</div>
-                        <div class="dashboard-component-caption">Retrieval</div>
+                        <div class="dashboard-component-caption">Dense search</div>
+                    </div>
+                    <div>
+                        <div class="dashboard-component-name">🔤 BM25</div>
+                        <div class="dashboard-component-caption">Keyword search</div>
+                    </div>
+                    <div>
+                        <div class="dashboard-component-name">🔀 RRF</div>
+                        <div class="dashboard-component-caption">Hybrid fusion</div>
                     </div>
                     <div>
                         <div class="dashboard-component-name">🎯 Reranker</div>
@@ -641,6 +698,134 @@ if st.session_state.show_rag:
                         🤖 Generation: {generation_status}
                     </div>
                 </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # ----------------------------------------------------
+        # HYBRID RETRIEVAL -> RERANK TRACE
+        # ----------------------------------------------------
+
+        if retrieved_results:
+
+            reranked_keys = {
+                id_key: r.get("rerank_score")
+                for r in reranked_results
+                for id_key in [(r["metadata"].get("id"), r["metadata"].get("chunk_number"))]
+            }
+
+            def _rank(v):
+                return f"#{v}" if v else "—"
+
+            rows = []
+            for n, r in enumerate(retrieved_results, start=1):
+                md = r.get("metadata", {})
+                key = (md.get("id"), md.get("chunk_number"))
+                rr = reranked_keys.get(key)
+                rr_cell = (
+                    f'<span class="hy-pill hy-top">{rr:.2f}</span>'
+                    if rr is not None else "—"
+                )
+                rows.append(
+                    f"<tr><td>{n}</td><td>{md.get('scheme_name', '')}</td>"
+                    f'<td><span class="hy-pill hy-dense">{_rank(r.get("dense_rank"))} · {r.get("score", 0):.3f}</span></td>'
+                    f'<td><span class="hy-pill hy-bm25">{_rank(r.get("bm25_rank"))} · {r.get("bm25_score", 0):.2f}</span></td>'
+                    f'<td><span class="hy-pill hy-rrf">{r.get("rrf_score", 0):.4f}</span></td>'
+                    f"<td>{rr_cell}</td></tr>"
+                )
+
+            st.markdown(
+                f"""
+                <div class="dashboard-card" style="margin-top:16px">
+                    <div class="hy-sub">🔀 Hybrid retrieval → 🎯 Rerank</div>
+                    <div class="dashboard-component-caption">
+                        FAISS (meaning) and BM25 (keywords) each rank all scheme chunks.
+                        Reciprocal Rank Fusion merges them into the top {retrieved_count};
+                        the CrossEncoder rescores those and keeps the best {reranked_count}.
+                    </div>
+                    <table class="hy-table">
+                        <tr><th>#</th><th>SCHEME</th><th>FAISS RANK · COSINE</th>
+                        <th>BM25 RANK · SCORE</th><th>RRF</th><th>RERANK</th></tr>
+                        {''.join(rows)}
+                    </table>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+
+# ============================================================
+# EVALUATION REPORT
+# ============================================================
+
+EVAL_REPORT = Path(__file__).resolve().parent / "evaluation" / "report.json"
+
+if "show_eval" not in st.session_state:
+    st.session_state.show_eval = False
+
+st.markdown("---")
+
+if st.button("📊 EVALUATION REPORT"):
+    st.session_state.show_eval = not st.session_state.show_eval
+
+if st.session_state.show_eval:
+
+    st.markdown(
+        '<div class="section-title">📊 Evaluation Report</div>',
+        unsafe_allow_html=True
+    )
+
+    if not EVAL_REPORT.exists():
+        st.markdown(
+            '<div class="dashboard-card">No report yet. Run '
+            '<code>python evaluator.py</code> to create one.</div>',
+            unsafe_allow_html=True
+        )
+    else:
+        report = json.loads(EVAL_REPORT.read_text(encoding="utf-8"))
+        cases = report.get("results", [])
+        total = len(cases)
+        passed = sum(1 for c in cases if c.get("status") == "PASS")
+        by_type = {}
+        for c in cases:
+            t = by_type.setdefault(c.get("type", "?"), [0, 0])
+            t[1] += 1
+            t[0] += c.get("status") == "PASS"
+        langs = sorted({c.get("language", "") for c in cases if c.get("language")})
+
+        type_cells = "".join(
+            f'<div><div class="dashboard-metric-value">{p}/{n}</div>'
+            f'<div class="dashboard-metric-label">{t.upper()}</div></div>'
+            for t, (p, n) in by_type.items()
+        )
+        rows = "".join(
+            f"<tr><td>{c.get('id')}</td><td>{c.get('question')}</td>"
+            f"<td>{c.get('language', '').title()}</td><td>{c.get('type', '').title()}</td>"
+            f"<td>{c.get('question_status')}</td>"
+            f'<td class="{"eval-pass" if c.get("status") == "PASS" else "eval-fail"}">{c.get("status")}</td></tr>'
+            for c in cases
+        )
+        pct = (passed / total * 100) if total else 0
+
+        st.markdown(
+            f"""
+            <div class="dashboard-card">
+                <div class="dashboard-metrics">
+                    <div><div class="dashboard-metric-value">{pct:.0f}%</div>
+                    <div class="dashboard-metric-label">PASS RATE</div></div>
+                    <div><div class="dashboard-metric-value">{passed}/{total}</div>
+                    <div class="dashboard-metric-label">TESTS PASSED</div></div>
+                    {type_cells}
+                </div>
+                <div class="dashboard-component-caption">
+                    Languages: {", ".join(l.title() for l in langs)} · Run {report.get("run_at", "")}
+                </div>
+                <table class="hy-table">
+                    <tr><th>#</th><th>QUESTION</th><th>LANGUAGE</th><th>EXPECTED</th>
+                    <th>GUARDRAIL STATUS</th><th>RESULT</th></tr>
+                    {rows}
+                </table>
             </div>
             """,
             unsafe_allow_html=True

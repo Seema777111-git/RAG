@@ -1,0 +1,126 @@
+{
+  "run_at": "2026-11-02 16:48",
+  "retrieval": "hybrid (FAISS + BM25, RRF) -> CrossEncoder rerank",
+  "results": [
+    {
+      "id": 1,
+      "type": "valid",
+      "language": "english",
+      "question": "What subsidy is available for farmers for agricultural machinery?",
+      "question_status": "VALID",
+      "allowed": true,
+      "evidence_count": 3,
+      "status": "PASS",
+      "reason": "Valid question reached the generator with official evidence.",
+      "answer": "The Value Addition Machinery Facilitation Centre scheme provides 50% subsidy up to Rs.5 lakh for agricultural machinery with an overall project cost limit of Rs.10 lakh per Custom Hiring Center. This benefit applies specifically to farmers who need new or upgraded farm equipment."
+    },
+    {
+      "id": 2,
+      "type": "valid",
+      "language": "english",
+      "question": "What documents are required to apply for a government agriculture scheme?",
+      "question_status": "VALID",
+      "allowed": true,
+      "evidence_count": 3,
+      "status": "PASS",
+      "reason": "Valid question reached the generator with official evidence.",
+      "answer": "For applying to government agriculture schemes in Tamil Nadu:\n\n1. Chief Minister’s Mannuyir Kaathu Manniyar Kaappom Scheme: Aadhar card and property document.\n2. Sub-Mission on Agricultural Mechanisation (Agri): Property document and certificate for farm machinery ownership or use.\n3. Tamil Nadu Irrigated Agriculture Modernization Project: Aadhaar card, property documents, bank account details, FPO incorporation certificates. \n\nEach scheme has its own specific requirements; make sure you have all necessary documentation before submitting your application."
+    },
+    {
+      "id": 3,
+      "type": "valid",
+      "language": "tamil",
+      "question": "விவசாயிகளுக்கு என்ன மானிய திட்டங்கள் உள்ளன?",
+      "question_status": "VALID",
+      "allowed": true,
+      "evidence_count": 3,
+      "status": "PASS",
+      "reason": "Valid question reached the generator with official evidence.",
+      "answer": "விவசாயி மன்னர் தொடக்கமுள்ளது: Paramparagat Krishi Vikas Yojana-2024-25\n\nஇதற்றப் பணியங்கள்:\n1. சிட்டா \n2. அடங்கல்\n3. பாஸ்போர்஡் (அளவு புகைப்படம் - 2)\n4. ரேசன் ஆட்டி/スマートஆட்டி நகல்\n5. ஐயர் ஆட்டி மஞ்னல்\n\nஇதற்றப் பணியங்கள் தொடக்கம்: \n1. சிளூரில் வழக்கம்\n2. அடங்கல்"
+    },
+    {
+      "id": 4,
+      "type": "valid",
+      "language": "tanglish",
+      "question": "Vivasaayigalukku enna subsidy thittangal irukku?",
+      "question_status": "VALID",
+      "allowed": true,
+      "evidence_count": 3,
+      "status": "PASS",
+      "reason": "Valid question reached the generator with official evidence.",
+      "answer": "Vivasaayigalukku enna subsidy thittangal irakkanam:\n\n1. National Horticulture Mission: 50% subisidy for up to Rs.5 lakh per project cost.\n2. Value Addition Machinery Facilitation Centre: No specific amount mentioned but offers 50% subsidy assistance with maximum of Rs.5 lakhs total project cost.\n3. National Mission on Edible Oil –Oil Palm-2024-25:\n   - Planting materials at no charge (Rs.100 percent).\n   - Maintenance and intercropping subsidies in the first four years, each worth Rs.5,250/hectare.\n\nEligibility is given to small/marginal farmers, women farmers, SC/ST farmers; documents required include Chitta, Adangal, Passport size photo, Ration Card/Smart card photocopies, Aadhar Card details for bank account setup etc., depending upon specific schemes."
+    },
+    {
+      "id": 5,
+      "type": "insufficient",
+      "language": "english",
+      "question": "Subsidy?",
+      "question_status": "INSUFFICIENT",
+      "allowed": false,
+      "evidence_count": 0,
+      "status": "PASS",
+      "reason": "Insufficient question was correctly blocked.",
+      "answer": "Please provide a little more detail. For example, ask about a specific subsidy, crop, agricultural machinery, irrigation, eligibility, documents, or application process."
+    },
+    {
+      "id": 6,
+      "type": "insufficient",
+      "language": "english",
+      "question": "Scheme?",
+      "question_status": "INSUFFICIENT",
+      "allowed": false,
+      "evidence_count": 0,
+      "status": "PASS",
+      "reason": "Insufficient question was correctly blocked.",
+      "answer": "Please provide a little more detail. For example, ask about a specific subsidy, crop, agricultural machinery, irrigation, eligibility, documents, or application process."
+    },
+    {
+      "id": 7,
+      "type": "irrelevant",
+      "language": "english",
+      "question": "Who is the Prime Minister of Canada?",
+      "question_status": "IRRELEVANT",
+      "allowed": false,
+      "evidence_count": 0,
+      "status": "PASS",
+      "reason": "Irrelevant question was correctly blocked.",
+      "answer": "I can help only with Tamil Nadu Government agricultural schemes, subsidies, farmer benefits, eligibility, documents, and application information."
+    },
+    {
+      "id": 8,
+      "type": "irrelevant",
+      "language": "english",
+      "question": "How can I learn Python programming?",
+      "question_status": "IRRELEVANT",
+      "allowed": false,
+      "evidence_count": 0,
+      "status": "PASS",
+      "reason": "Irrelevant question was correctly blocked.",
+      "answer": "I can help only with Tamil Nadu Government agricultural schemes, subsidies, farmer benefits, eligibility, documents, and application information."
+    },
+    {
+      "id": 9,
+      "type": "valid",
+      "language": "english",
+      "question": "What are the eligibility requirements for farmers to receive agricultural assistance?",
+      "question_status": "VALID",
+      "allowed": true,
+      "evidence_count": 3,
+      "status": "PASS",
+      "reason": "Valid question reached the generator with official evidence.",
+      "answer": "To receive agricultural assistance for solar fencing units and value addition machinery facilitation centers, farmers need to meet specific eligibility requirements as mentioned below:\n\n1. **Solar Fencing Unit Scheme:**\n   - Eligibility up to 2 ha area with maximum length of 566 metres.\n   - Documents required include guidelines which are available at https://www.tnagrisnet.tn.gov.in/people_app/goScheme/.\n\nFor Value Addition Machinery Facilitation Center:\n- Farmers must join a group (not individually).\n- Guidelines can be found here: [https://www.tnagrisnet.tn.gov.in/people_app/goScheme/].\n\nThere is no mention of subsidy for the Sub-Mission on Agricultural Mechanisation scheme in this evidence, so it does not provide information about its eligibility."
+    },
+    {
+      "id": 10,
+      "type": "valid",
+      "language": "tanglish",
+      "question": "Agriculture scheme ku epdi apply panrathu?",
+      "question_status": "VALID",
+      "allowed": true,
+      "evidence_count": 3,
+      "status": "PASS",
+      "reason": "Valid question reached the generator with official evidence.",
+      "answer": "To apply for schemes related to agriculture in Tamil Nadu government, you need to visit [TN Agri Ris Net](http://www.tnaigris.net/) and look at \"National Agriculture Development Programme\" or other relevant programs listed there under Horticulture department. The scheme covers districts like Chengalpaatu, Kancheepuram, Karur etc., with preference given to small farmers including women and SC/ST members. You'll find details about eligibility criteria and documents required directly from their website. Ensure your Aadhar card is ready as it's one of the mandatory document requirements mentioned online."
+    }
+  ]
+}
