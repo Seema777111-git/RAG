@@ -8,6 +8,16 @@ neo4j>=5.18.0
 openai>=1.20.0
 pydantic>=2.6.0
 
+# Vector search and index building
+faiss-cpu>=1.8.0
+numpy
+langchain-core
+langchain-openai
+langchain-community
+
+# UI
+streamlit>=1.35.0
+
 # Environment variables & utilities
 python-dotenv>=1.0.1
 tqdm>=4.66.0

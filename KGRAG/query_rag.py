@@ -1,32 +1,38 @@
-import os
 import json
 import faiss
 import numpy as np
 from openai import OpenAI
 from neo4j import GraphDatabase
-from dotenv import load_dotenv
+import config
 
-load_dotenv()
 
 class HybridRAGPipeline:
     def __init__(self):
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
-        self.neo4j_uri = os.getenv("NEO4J_URI")
-        self.neo4j_user = os.getenv("NEO4J_USER")
-        self.neo4j_password = os.getenv("NEO4J_PASSWORD")
-        
+        # Same settings as build_rag.py (config.py reads .env: NEO4J_USERNAME, not NEO4J_USER)
+        self.openai_api_key = config.OPENAI_API_KEY
+        self.neo4j_uri = config.NEO4J_URI
+        self.neo4j_user = config.NEO4J_USERNAME
+        self.neo4j_password = config.NEO4J_PASSWORD
+
         self.client = OpenAI(api_key=self.openai_api_key)
         self.driver = GraphDatabase.driver(self.neo4j_uri, auth=(self.neo4j_user, self.neo4j_password))
-        
-        # Load FAISS index and metadata if available
-        self.index_path = "faiss_index.bin"
-        self.meta_path = "faiss_metadata.json"
-        
-        if os.path.exists(self.index_path) and os.path.exists(self.meta_path):
-            self.faiss_index = faiss.read_index(self.index_path)
+
+        # Load the FAISS index written by build_rag.py (LangChain save_local -> faiss_index/index.faiss).
+        # Its rows are in the same order as schemes_cleaned.json, so that file is the metadata.
+        self.index_path = config.FAISS_INDEX_DIR / "index.faiss"
+        self.meta_path = config.CLEAN_DATA_PATH
+
+        if self.index_path.exists() and self.meta_path.exists():
+            self.faiss_index = faiss.read_index(str(self.index_path))
             with open(self.meta_path, "r", encoding="utf-8") as f:
                 self.faiss_metadata = json.load(f)
+            if self.faiss_index.ntotal != len(self.faiss_metadata):
+                raise ValueError(
+                    f"FAISS index has {self.faiss_index.ntotal} vectors but "
+                    f"{self.meta_path.name} has {len(self.faiss_metadata)} schemes. Re-run build_rag.py."
+                )
         else:
+            print(f"FAISS index not found at {self.index_path}. Run build_rag.py first.")
             self.faiss_index = None
             self.faiss_metadata = []
 
@@ -48,7 +54,7 @@ class HybridRAGPipeline:
     def get_embedding(self, text: str):
         response = self.client.embeddings.create(
             input=[text],
-            model="text-embedding-3-small"
+            model=config.EMBEDDING_MODEL
         )
         return response.data[0].embedding
 
@@ -77,13 +83,18 @@ class HybridRAGPipeline:
         if not extracted_schemes:
             return graph_facts
         
+        # Relationship and label names match build_rag.py
         query_cypher = """
         MATCH (s:Scheme)
         WHERE s.name IN $schemes
-        OPTIONAL MATCH (s)-[:OFFERED_BY]->(d:Department)
-        OPTIONAL MATCH (s)-[:TARGETS]->(b:Beneficiary)
-        OPTIONAL MATCH (s)-[:PROVIDES]->(bt:BenefitType)
-        RETURN s.name AS scheme, d.name AS department, collect(DISTINCT b.name) AS beneficiaries, collect(DISTINCT bt.name) AS benefits
+        OPTIONAL MATCH (s)-[:ADMINISTERED_BY]->(d:Department)
+        OPTIONAL MATCH (s)-[:TARGETS_BENEFICIARY]->(b:Beneficiary)
+        OPTIONAL MATCH (s)-[:TARGETS_COMMUNITY]->(c:Community)
+        OPTIONAL MATCH (s)-[:PROVIDES_BENEFIT]->(bt:Benefit)
+        RETURN s.name AS scheme, d.name AS department,
+               collect(DISTINCT b.name) AS beneficiaries,
+               collect(DISTINCT c.name) AS communities,
+               collect(DISTINCT bt.name) AS benefits
         """
         
         try:
@@ -93,8 +104,10 @@ class HybridRAGPipeline:
                     scheme = record["scheme"]
                     dept = record["department"] or "Unknown"
                     beneficiaries = ", ".join(record["beneficiaries"]) if record["beneficiaries"] else "General"
+                    communities = ", ".join(record["communities"]) if record["communities"] else "All"
                     benefits = ", ".join(record["benefits"]) if record["benefits"] else "General Support"
-                    fact = f"Scheme: {scheme} | Department: {dept} | Target Beneficiaries: {beneficiaries} | Benefits: {benefits}"
+                    fact = (f"Scheme: {scheme} | Department: {dept} | Target Beneficiaries: {beneficiaries}"
+                            f" | Communities: {communities} | Benefits: {benefits}")
                     graph_facts.append(fact)
         except Exception as e:
             print(f"Graph search error: {e}")

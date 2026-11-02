@@ -4,4 +4,3 @@ venv/
 __pycache__/
 *.pyc
 test_conn*
-checkdb*config*Get-Content .gitignore

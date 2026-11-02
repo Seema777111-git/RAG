@@ -1,287 +1,125 @@
 # KGRAG — Knowledge Graph + Retrieval-Augmented Generation
 
-KGRAG is an AI-powered **Knowledge Graph + Retrieval-Augmented Generation (RAG)** project designed to retrieve reliable information from structured and unstructured government scheme data and provide grounded answers.
+**Level: Base.** My base Knowledge Graph RAG project. It answers questions about **Tamil Nadu Government
+schemes** by combining **vector search (FAISS)** with a **knowledge graph (Neo4j)**, then generating a grounded
+answer with GPT-4o and checking it for faithfulness.
 
-The project combines **data ingestion, cleaning, vector embeddings, FAISS retrieval, and LLM-based question answering** to create a domain-focused AI assistant.
+The advanced projects in this repo build on these ideas:
+[rag-hybrid](../rag-hybrid) (vector + knowledge graph with NeMo guardrails and DeepEval) and
+[TN_FARMER_SCHEME_AI](../TN_FARMER_SCHEME_AI) (FAISS + BM25 hybrid, reranking, guardrails, multilingual).
 
-## 🎯 Project Objective
+## 🎯 What it does
 
-The goal of KGRAG is to build an AI system that can:
-
-* Collect government scheme information
-* Clean and structure the source data
-* Build a searchable knowledge base
-* Retrieve relevant information for a user query
-* Generate answers grounded in the retrieved evidence
-* Reduce hallucinations by using retrieved source information
+* Scrapes scheme information from the official tn.gov.in portal (54 schemes)
+* Cleans it into structured records (department, beneficiaries, communities, benefits, age and income limits)
+* Indexes every scheme twice: as vectors in FAISS and as a graph in Neo4j
+* For each question: guardrail → vector search → graph facts → GPT-4o answer → faithfulness check
 
 ## 🏗️ Architecture
 
 ```text
-Government Scheme Sources
+tn.gov.in scheme pages
           ↓
-       Scraping
+   scrape.py (Playwright)
           ↓
-    Data Cleaning
+ schemes.json → schemes_cleaned.json
           ↓
-   Structured JSON
-          ↓
-   RAG Knowledge Base
-          ↓
-    Vector Embeddings
-          ↓
-        FAISS
-          ↓
-      Retrieval
-          ↓
-    Relevant Context
-          ↓
-        LLM
-          ↓
-   Grounded AI Answer
+     build_rag.py
+     ├── FAISS index (OpenAI text-embedding-3-small)   → faiss_index/
+     └── Neo4j Aura knowledge graph
+           (Scheme)-[:ADMINISTERED_BY]->(Department)
+           (Scheme)-[:TARGETS_BENEFICIARY]->(Beneficiary)
+           (Scheme)-[:TARGETS_COMMUNITY]->(Community)
+           (Scheme)-[:PROVIDES_BENEFIT]->(Benefit)
+```
+
+### Question flow (`query_rag.py`)
+
+```text
+User question
+     ↓
+Keyword guardrail (blocks off-topic / unsafe queries)
+     ↓
+FAISS vector search → top 5 scheme texts + scheme names
+     ↓
+Neo4j lookup for those schemes → department, beneficiaries, communities, benefits
+     ↓
+GPT-4o answer from both contexts
+     ↓
+GPT-4o-mini faithfulness check (Supported / Unsupported)
+     ↓
+Structured JSON → Streamlit UI (app.py)
 ```
 
 ## 📁 Project Structure
 
 ```text
 KGRAG/
-│
-├── app.py
-├── build_rag.py
-├── checkdb.py
-├── config.py
-├── query_rag.py
-├── scrape.py
-│
-├── schemes.json
-├── schemes_cleaned.json
-│
-├── faiss_index/
-│   ├── index.faiss
-│   └── index.pkl
-│
-├── requirements.txt
-└── .gitignore
+├── app.py                 # Streamlit UI
+├── scrape.py              # Scrapes and cleans scheme data from tn.gov.in
+├── build_rag.py           # Builds the FAISS index and the Neo4j graph
+├── query_rag.py           # Hybrid pipeline: guardrail, vector + graph retrieval, answer, evaluation
+├── config.py              # Settings and paths (reads .env)
+├── checkdb.py             # Checks the Neo4j connection and graph contents
+├── schemes.json           # Raw scraped data
+├── schemes_cleaned.json   # Cleaned records (also the metadata for the FAISS rows)
+├── faiss_index/           # index.faiss + index.pkl
+└── requirements.txt
 ```
-
-## 🔍 Key Components
-
-### `scrape.py`
-
-Collects government scheme information from the configured source.
-
-Responsibilities include:
-
-* Web data extraction
-* URL handling
-* Data collection
-* Initial data preparation
-
-### `schemes.json`
-
-Contains the collected scheme data before cleaning and normalization.
-
-### `schemes_cleaned.json`
-
-Contains cleaned and normalized scheme information used by the RAG pipeline.
-
-### `build_rag.py`
-
-Builds the searchable RAG knowledge base.
-
-Typical flow:
-
-```text
-Cleaned Data
-     ↓
-Documents
-     ↓
-Embeddings
-     ↓
-FAISS Index
-```
-
-### `faiss_index/`
-
-Stores the generated FAISS vector index used for semantic retrieval.
-
-```text
-index.faiss
-index.pkl
-```
-
-These files allow the application to retrieve relevant scheme information efficiently.
-
-### `query_rag.py`
-
-Handles user queries and retrieves relevant information from the RAG knowledge base.
-
-### `app.py`
-
-Provides the application interface and connects the user query workflow with the RAG pipeline.
-
-### `config.py`
-
-Contains configurable application and RAG settings.
-
-### `checkdb.py`
-
-Utility for checking the generated knowledge base/vector database.
-
-## 🧠 RAG Workflow
-
-KGRAG follows the following conceptual workflow:
-
-```text
-User Question
-     ↓
-Query Processing
-     ↓
-Semantic Retrieval
-     ↓
-FAISS Vector Search
-     ↓
-Relevant Scheme Information
-     ↓
-Context Construction
-     ↓
-LLM Generation
-     ↓
-Grounded Answer
-```
-
-The important principle is:
-
-> **Retrieve relevant information first, then generate the answer using that context.**
-
-This helps reduce unsupported responses and improves domain-specific accuracy.
 
 ## ⚙️ Technology Stack
 
-* **Python**
-* **RAG — Retrieval-Augmented Generation**
-* **FAISS**
-* **Vector Embeddings**
-* **JSON**
-* **Web Scraping**
-* **Streamlit**
-* **LLM-based Question Answering**
+* **Python**, **Streamlit**
+* **Playwright** for web scraping
+* **OpenAI** embeddings (`text-embedding-3-small`), **GPT-4o** answers, **GPT-4o-mini** evaluation
+* **FAISS** vector search
+* **Neo4j Aura** knowledge graph (Cypher)
+* **LangChain** (index building)
 
 ## 🚀 Setup
 
-### 1. Clone the repository
-
-```bash
+```powershell
 git clone https://github.com/Seema777111-git/RAG.git
 cd RAG/KGRAG
-```
-
-### 2. Create a virtual environment
-
-```powershell
 python -m venv .venv
-```
-
-### 3. Activate the virtual environment
-
-Windows PowerShell:
-
-```powershell
 .\.venv\Scripts\Activate.ps1
-```
-
-### 4. Install dependencies
-
-```powershell
 pip install -r requirements.txt
+playwright install chromium     # only needed to re-scrape
 ```
 
-### 5. Configure environment variables
-
-Create a local `.env` file if required by the application.
-
-**Do not commit `.env` to GitHub.**
-
-The repository `.gitignore` excludes sensitive environment files.
-
-### 6. Build the RAG index
-
-```powershell
-python build_rag.py
-```
-
-### 7. Run the application
-
-```powershell
-streamlit run app.py
-```
-
-## 🧪 Testing and Validation
-
-Before deploying changes, validate:
-
-* Source data is available
-* Cleaned data is generated correctly
-* FAISS index is created successfully
-* Retrieval returns relevant documents
-* Generated answers are grounded in retrieved information
-* Environment secrets are not committed
-
-## 🔐 Security
-
-Sensitive configuration should remain local.
-
-The following files/directories should **not** be committed:
+Create a local `.env` (never commit it):
 
 ```text
-.env
-.venv/
-venv/
-__pycache__/
-*.pyc
+OPENAI_API_KEY=sk-...
+NEO4J_URI=neo4j+s://<your-instance>.databases.neo4j.io
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=...
 ```
 
-Never place API keys, passwords, tokens, or other credentials directly in source code.
+A free Neo4j Aura instance works. Free instances pause after a few days without use; resume them in the Aura
+console.
 
-## 📌 Future Enhancements
+```powershell
+python checkdb.py        # check the Neo4j connection
+python build_rag.py      # build FAISS + the knowledge graph
+streamlit run app.py     # run the app
+```
 
-Potential improvements include:
+## 🛠️ Fixes in this version
 
-* Knowledge Graph integration using Neo4j
-* Hybrid keyword + vector retrieval
-* Reranking
-* Source citation and evidence display
-* Conversational memory
-* Agentic RAG
-* Query classification
-* Automated data refresh
-* Evaluation framework
-* Retrieval quality metrics
-* Hallucination/grounding checks
-* Multilingual government-scheme assistance
+* `query_rag.py` now loads the index that `build_rag.py` writes (`faiss_index/index.faiss`, with
+  `schemes_cleaned.json` as row metadata). Before, it looked for `faiss_index.bin`, so vector search returned nothing.
+* The graph query now uses the same relationship names as the build (`ADMINISTERED_BY`, `TARGETS_BENEFICIARY`,
+  `TARGETS_COMMUNITY`, `PROVIDES_BENEFIT`), so graph facts are returned.
+* Credentials come from `config.py` (`NEO4J_USERNAME`), the same as the build step.
 
-## 🎓 Portfolio Value
+## 📌 Next steps (done in the advanced projects)
 
-KGRAG demonstrates practical AI engineering concepts including:
-
-* Retrieval-Augmented Generation
-* Semantic Search
-* Vector Databases
-* Data Engineering
-* Web Data Ingestion
-* LLM Application Development
-* AI Grounding
-* Knowledge Base Construction
-* AI Agent architecture foundations
-
-This project is intended as a portfolio demonstration of building an **end-to-end domain-specific AI application** rather than a simple chatbot.
+* Keyword (BM25) + vector hybrid retrieval and reranking
+* Score-based guardrails instead of a keyword list
+* A labelled evaluation set
+* Multilingual questions (Tamil / Tanglish)
 
 ## 👤 Author
 
-**Seema**
-
-GitHub: `Seema777111-git`
-
-Repository:
-
-https://github.com/Seema777111-git/RAG/tree/main/KGRAG
+Built by [Seema777111-git](https://github.com/Seema777111-git)
